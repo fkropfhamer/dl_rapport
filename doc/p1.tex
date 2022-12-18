@@ -1,0 +1,84 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithm} 
+\usepackage{algpseudocode}
+\usepackage{hyperref} 
+
+\title{
+	Deep Learning Project 1
+}
+\author{Fabian Kropfhamer}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+The goal of this project is to compare different architectures of neural network.
+The different Architectures are evaluated on the same to task.
+This task is given two images of one digit numbers predict which of the two numbers has a higher value.
+The Images thereby are 14 by 14 pixels.
+Therefore the input for the neural networks is a 2x14x14 tensor.
+The output and also the label for the images is 1 if the the first digit is higher than the second digit and 0 otherwise.
+The training dataset and also the test dataset consists of 1000 samples each.
+In following, the different architectures are introduced and then compared.  
+\section{Architectures}
+\subsection{Feed Forward}
+The Feed Forward neural network is the simplest of the investigated architectures.
+It consists of 3 fully connected layers.
+Between the 2 two hidden layers are two activation functions.
+These are activation functions are ReLU functions.
+Also before the input layer there is a flatten function, which transforms the 2x14x14 input tensor in to a 2x196 tensor.
+As the loss function binary cross entropy loss is used.
+The neural network is optimized with the Adam optimization algorithm.
+\subsection{Convolution}
+The second architecture is a convolutional neural network.
+This network includes 2 convolution 2d layers with ReLU as their activation function.
+Also, between the 2 convolution layers a max pooling layers is used.
+These convolution layers are followed by three fully connected layers, which also use the ReLU activation function.
+For the training of the network, Adam is used as the optimzer and binary cross entropy for the loss function.
+\subsection{Shared Weights}
+This architecture uses convolutional layers, too.
+But in this neural network the two images are not fed into the convolution layer as one tensor.
+The 2x14x14 tensor first split up into the two images, leaving two 14x14 tensors.
+These separate tensors are then feed on after another into the convolution layers of the network.
+These convolution layers are very similar to the ones used in the convolution architecture.
+They hereby consist also of 2 convolution 2d layers again with max pooling and the ReLU activation function.
+Followed by 2 fully connected layers also with RelU as the activation function.
+This first part forms the shared part of the neural network.
+That means the weights are shared for the two images.
+After this shared part the output for the two images is concatenated and then fed into a last fully connected layer.
+This fully connected layer takes the two outputs and produces the prediction and output of the network.
+\subsection{Auxiliary Loss}
+In this approach additional intermediary results are used.
+The network predicts first which digit a picture shows.
+This prediction is then used to calculate an additional loss, which is then used to train the model.
+Furthermore, the prediction then feed into fully connected layer to form the final prediction.
+As in the shared weights architecture the input tensor is split up into the two images.
+These two images are then forwarded to the convolutional layers.
+Hereby the same convolutional layers and activation functions are used as for the shared weights network.
+The only difference being that the weights are separated and not shared.
+Another difference is in the training of the network.
+Because there are three predictions in total, one being the binary classification as in the other architectures.
+The others, being the prediction of the  digits as multiclass classifcition.
+Therefore two different loss functions have to be used.
+For the binary classification the binary cross entropy is used and for the digit classification cross entropy loss is used.
+These losses are then used to optimize the weights of the model.
+Stochastic gradient descent is used as the optimization algorithm. 
+\subsection{Pretraining}
+The last architecture is very similar to the shared weight architecture.
+The layers of the model are herby the same and the only difference is the training.
+It combines basically the auxiliary loss architecture with the shared weight architecture.
+Thereby, the weights are shared for the both images and the prediction of the class of the image is used in training.
+This is accomplished by splitting the training into two steps.
+The first step is to train the first part of the network including all the convolution layers to predict the digits in the images.
+The second step is then to take these trained weights and use them to predict the original task.
+In the neural network these pretrained weights are again shared for the two images.
+Also cross entropy loss is used for the first training step and binary cross entropy loss for the second.
+Adam is again used as the optmization algorithm in both steps. 
+\section{Results}
+\section{Discussion}
+
+
+\end{document}
