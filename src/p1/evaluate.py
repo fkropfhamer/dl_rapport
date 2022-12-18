@@ -17,3 +17,5 @@ def evaluate_model(model, testloader):
 
     acc = correct / total
     print(f'Accuracy: {acc}')
+
+    return acc
