@@ -60,6 +60,8 @@ def evaluate(model, inputs, targets):
     acc = correct / total
     print(f'Accuracy: {acc}')
 
+    return acc
+
 
 def xor():
     inputs = torch.tensor([[0, 0], [1, 1], [0, 1], [1, 0]]).unsqueeze(dim=1).float()
@@ -138,6 +140,9 @@ def test():
 
     import random
 
+    a = []
+    l = []
+
     for epoch in range(epochs):
         epoch_loss = 0
 
@@ -157,9 +162,29 @@ def test():
 
         print(f'loss {epoch_loss / len(train_x)}')
 
-        evaluate(model, test_x, test_y)
+        l.append(epoch_loss / len(train_x))
+
+        acc = evaluate(model, test_x, test_y)
+        a.append(acc)
+
+    import matplotlib.pyplot as plt
+
+    x = range(1, epochs + 1)
 
 
+    plt.figure(0)
+    plt.plot(x, l)
+    plt.xlabel('epoch')
+    plt.ylabel('loss')
+    # plt.show()
+    plt.savefig('loss.png')
+
+    plt.figure(1)
+    plt.plot(x, a)
+    plt.xlabel('epoch')
+    plt.ylabel('accuracy')
+    # plt.show()
+    plt.savefig('acc.png')
     
 
 def main():

@@ -76,8 +76,26 @@ The first step is to train the first part of the network including all the convo
 The second step is then to take these trained weights and use them to predict the original task.
 In the neural network these pretrained weights are again shared for the two images.
 Also cross entropy loss is used for the first training step and binary cross entropy loss for the second.
-Adam is again used as the optmization algorithm in both steps. 
+Adam is again used as the optimization algorithm in both steps. 
 \section{Results}
+\begin{center}
+\begin{tabular}{| c | c | c | c |} 
+ \hline
+ Architecture & Max accuracy & Min accuracy & Standard deviation \\ [0.5ex] 
+ \hline\hline
+  Feed Forward & 0.8270 & 0.7910 & 0.0089  \\ 
+ \hline
+ Convolution & 545 & 18744 & 7560 \\
+ \hline
+ Shared Weights & 7 & 78 & 5415 \\
+ \hline
+ Auxiliary Loss & 545 & 778 & 7507 \\
+ \hline
+ 
+ Pretraining & 88 & 788 & 6344 \\ [1ex] 
+ \hline
+\end{tabular}
+\end{center}
 \section{Discussion}
 
 
