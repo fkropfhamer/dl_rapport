@@ -8,9 +8,13 @@ class Sequential:
 
     def predict(self, x):
         for layer in self.layers:
-            x = layer.forward(x)
+            x = layer(x)
 
         return x
+
+    def backward(self, error, learning_rate):
+        for layer in reversed(self.layers):
+            error = layer.backward(error, learning_rate)
 
     def __call__(self, x):
         return self.predict(x)
