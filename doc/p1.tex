@@ -1,9 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{algorithm} 
-\usepackage{algpseudocode}
-\usepackage{hyperref} 
 \usepackage{graphicx}
 
 
@@ -39,7 +36,7 @@ The second architecture is a convolutional neural network.
 This network includes 2 convolution 2d layers with ReLU as their activation function.
 Also, between the 2 convolution layers a max pooling layers is used.
 These convolution layers are followed by three fully connected layers, which also use the ReLU activation function.
-For the training of the network, Adam is used as the optimzer and binary cross entropy for the loss function.
+For the training of the network, Adam is used as the optimizer and binary cross entropy for the loss function.
 \subsection{Shared Weights}
 This architecture uses convolutional layers, too.
 But in this neural network the two images are not fed into the convolution layer as one tensor.
