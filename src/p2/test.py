@@ -52,8 +52,6 @@ def evaluate(model, inputs, targets):
     for x, y in zip(inputs, targets):
         output = model(x)
 
-        print(output, y)
-
         if torch.round(output) == y:
             correct += 1
 
@@ -101,9 +99,74 @@ def xor():
 
 
 
+
+
+def test():
+
+    def generate_data(size):
+        x = torch.rand(size, 2).unsqueeze(dim=1)
+        dis = torch.cdist(x, torch.tensor([[0.5, 0.5]]))
+
+        import math
+
+        d = 1/math.sqrt(2*math.pi)
+
+        y = (dis < d).float()
+
+        return x, y
+
+
+    train_x, train_y = generate_data(1000)
+    test_x, test_y = generate_data(1000)
+
+    model = Sequential([
+        FullyConnected(2, 8),
+        ReLU(),
+        FullyConnected(8, 12),
+        Tanh(),
+        FullyConnected(12, 1),
+        Tanh(),
+    ])
+
+    # print(inputs.shape, train_x.shape)
+
+    epochs = 100
+
+    criterion = MSELoss()
+
+    learning_rate = 0.1
+
+    import random
+
+    for epoch in range(epochs):
+        epoch_loss = 0
+
+        d = list(zip (train_x, train_y))
+        random.shuffle(d)
+
+        print(f'Epoch {epoch + 1} of {epochs}')
+        for x, y in d:
+            output = model(x)
+
+            loss = criterion(output, y)
+            epoch_loss += loss
+
+            error = criterion.backward(output, y)
+
+            model.backward(error=error, learning_rate=learning_rate)
+
+        print(f'loss {epoch_loss / len(train_x)}')
+
+        evaluate(model, test_x, test_y)
+
+
+    
+
 def main():
-    lin_sep()
+    # lin_sep()
     # xor()
+
+    test()
     
 
 

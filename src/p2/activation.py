@@ -3,9 +3,6 @@ import torch
 torch.set_grad_enabled(False)
 
 class Tanh(Layer):
-    def __init__(self):
-        pass
-
     def _forward(self, x):
         return torch.tanh(x)
 
@@ -14,15 +11,12 @@ class Tanh(Layer):
 
 
 class Sigmoid(Layer):
-    def __init__(self):
-        pass
-
     def _forward(self, x):
         return torch.sigmoid(x)
 
 
     def backward(self, error, _):
-        return (self.last_input*(1.0-self.last_input)).mul(error)
+        return (torch.sigmoid(self.last_input)*(1.0-torch.sigmoid(self.last_input))) * error
 
 
 class ReLU(Layer):
@@ -31,3 +25,11 @@ class ReLU(Layer):
 
     def _forward(self, x):
         return torch.relu(x)
+
+
+    def backward(self, error, _):
+        x = self.last_input
+        x[x < .0] = .0
+        x[x > .0] = 1.
+
+        return x * error
