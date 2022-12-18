@@ -17,4 +17,17 @@
 
 \section{Introduction}
 The target of this project is to create a deep learning framework.
-The challenge herby is to not use basic mathematical functions.
+The challenge is hereby to create a framework with only using basic tensor operations from pytorch.
+Especially without the autograd function from pytorch.
+
+
+\section{Architecture}
+The architecture for the framework is split up into activation functions, error functions, layers and the sequential neural network itself.
+There is a layer function which serves as a base class.
+In base functionality it keeps track of the last input.
+
+The fully connected class inherits from the base layer class.
+It implements the forward and the backward function.
+It also holds weights and a bias.
+
+

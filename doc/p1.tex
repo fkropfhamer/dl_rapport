@@ -4,6 +4,8 @@
 \usepackage{algorithm} 
 \usepackage{algpseudocode}
 \usepackage{hyperref} 
+\usepackage{graphicx}
+
 
 \title{
 	Deep Learning Project 1
@@ -78,6 +80,9 @@ In the neural network these pretrained weights are again shared for the two imag
 Also cross entropy loss is used for the first training step and binary cross entropy loss for the second.
 Adam is again used as the optimization algorithm in both steps. 
 \section{Results}
+These are the results from 30 runs for each architecture.
+The models are trained for 20 epochs.
+The table shows the best result from each run and epoch.
 \begin{center}
 \begin{tabular}{| c | c | c | c |} 
  \hline
@@ -85,18 +90,41 @@ Adam is again used as the optimization algorithm in both steps.
  \hline\hline
   Feed Forward & 0.8270 & 0.7910 & 0.0089  \\ 
  \hline
- Convolution & 545 & 18744 & 7560 \\
+ Convolution & 0.8130 & 0.8130 & 0.0085 \\
  \hline
- Shared Weights & 7 & 78 & 5415 \\
+ Shared Weights & 0.8780 & 0.8380 & 0.0118 \\
  \hline
- Auxiliary Loss & 545 & 778 & 7507 \\
+ Auxiliary Loss & 0.7090 & 0.4450 & 0.0703 \\
  \hline
- 
- Pretraining & 88 & 788 & 6344 \\ [1ex] 
+ Pretraining & 0.8770 & 0.8410 & 0.0098 \\ [1ex] 
  \hline
 \end{tabular}
 \end{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{"accs.png"}
+\caption{Plot of accuracies}
+\end{figure}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{"losss.png"}
+\caption{Plot of losses}
+\end{figure}
 \section{Discussion}
+The results also show that the auxiliary model performs the worst.
+It also has the highest difference in performance between the runs.
 
+The feed forward performs reasonably well despite it being the simplest model of the presented.
+This could have to do with the fact that it has a lot of parameters.
+Although it achieves low loss the fastest its accuracy is not the best.
 
+All models get to a low less within 15 epochs, the auxiliary architecture being the exception.
+Also, for all but the auxiliary model the accuracy does not improve significantly after 15 epochs.
+
+The results indicate that the pretraining architecture has the highest accuracy.
+This could be because it combines the shared weights and the auxiliary loss.
+
+In conclusion different architectures can perform differently well on the given task.
+The project shows that even simple architectures can outperform more advanced architectures.
+Also across the project sharing weights performed the best for this specific data, with pretraining and without.
 \end{document}
