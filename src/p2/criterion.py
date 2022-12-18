@@ -3,7 +3,7 @@ torch.set_grad_enabled(False)
 
 class MSELoss:
     def forward(self, input, target):
-        return torch.pow(torch.sub(input, target), 2)
+        return torch.pow(torch.sub(input, target), 2).squeeze()
 
     def backward(self, input, target):
         return torch.div(2*torch.sub(input, target), torch.prod(torch.tensor(input.shape)))

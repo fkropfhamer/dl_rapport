@@ -9,6 +9,9 @@ class Tanh(Layer):
     def _forward(self, x):
         return torch.tanh(x)
 
+    def backward(self, error, _):
+        return (1-torch.pow(torch.tanh(self.last_input), 2)) * error
+
 
 class Sigmoid(Layer):
     def __init__(self):
